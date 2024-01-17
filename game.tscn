@@ -1,10 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://rpmqvx4nomne"]
+[gd_scene load_steps=10 format=3 uid="uid://rpmqvx4nomne"]
 
 [ext_resource type="Script" path="res://scripts/CubeSpin.gd" id="1_53eop"]
+[ext_resource type="PackedScene" uid="uid://2h55ab0e5gyn" path="res://assets/trees/type0/tree5.glb" id="2_sagx0"]
+[ext_resource type="Texture2D" uid="uid://dgssfw674fot" path="res://assets/skybox/animestyled_hdr.hdr" id="3_j528f"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_wiqns"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jfhxf"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_gcies"]
+panorama = ExtResource("3_j528f")
+filter = false
+
+[sub_resource type="Sky" id="Sky_nver5"]
+sky_material = SubResource("PanoramaSkyMaterial_gcies")
+process_mode = 1
+
+[sub_resource type="Environment" id="Environment_b87pw"]
+background_mode = 2
+sky = SubResource("Sky_nver5")
+ambient_light_color = Color(0.501961, 0.501961, 0.501961, 1)
+ambient_light_sky_contribution = 0.0
+tonemap_mode = 2
+tonemap_white = 6.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_hiuoj"]
 
 [node name="Game" type="Node3D"]
 
@@ -23,6 +43,7 @@ text = "This is a test of the UI"
 [node name="World" type="Node3D" parent="."]
 
 [node name="TestCube" type="MeshInstance3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.517989, 0)
 mesh = SubResource("BoxMesh_wiqns")
 script = ExtResource("1_53eop")
 
@@ -30,6 +51,21 @@ script = ExtResource("1_53eop")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/TestCube/Area3D"]
 shape = SubResource("BoxShape3D_jfhxf")
+
+[node name="tree5" parent="World" instance=ExtResource("2_sagx0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.370195, 0, 2.8699)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
+environment = SubResource("Environment_b87pw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World/WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 0.528438, 0.848972, 0, -0.848972, 0.528438, 2.99596, 57.0134, 45.0898)
+light_energy = 2.0
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0.260153)
+mesh = SubResource("PlaneMesh_hiuoj")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.867609, -0.142141, 0.476498, -3.89166e-10, 0.958273, 0.285856, -0.497247, -0.248011, 0.831406, 4.06665, 2.69932, 7.57837)
