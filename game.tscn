@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://rpmqvx4nomne"]
 
 [ext_resource type="Script" path="res://scripts/CubeSpin.gd" id="1_53eop"]
-[ext_resource type="PackedScene" uid="uid://2h55ab0e5gyn" path="res://assets/trees/type0/tree5.glb" id="2_sagx0"]
+[ext_resource type="PackedScene" path="res://assets/trees/type0/tree5.glb" id="2_sagx0"]
 [ext_resource type="Texture2D" uid="uid://dgssfw674fot" path="res://assets/skybox/animestyled_hdr.hdr" id="3_j528f"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_wiqns"]
@@ -14,7 +14,6 @@ filter = false
 
 [sub_resource type="Sky" id="Sky_nver5"]
 sky_material = SubResource("PanoramaSkyMaterial_gcies")
-process_mode = 1
 
 [sub_resource type="Environment" id="Environment_b87pw"]
 background_mode = 2
@@ -52,9 +51,6 @@ script = ExtResource("1_53eop")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/TestCube/Area3D"]
 shape = SubResource("BoxShape3D_jfhxf")
 
-[node name="tree5" parent="World" instance=ExtResource("2_sagx0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.370195, 0, 2.8699)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
 environment = SubResource("Environment_b87pw")
 
@@ -69,3 +65,6 @@ mesh = SubResource("PlaneMesh_hiuoj")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.867609, -0.142141, 0.476498, -3.89166e-10, 0.958273, 0.285856, -0.497247, -0.248011, 0.831406, 4.06665, 2.69932, 7.57837)
+
+[node name="tree5" parent="." instance=ExtResource("2_sagx0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0523019, 0, 2.17705)
