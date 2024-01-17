@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://rpmqvx4nomne"]
+
+[ext_resource type="Script" path="res://scripts/CubeSpin.gd" id="1_53eop"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wiqns"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jfhxf"]
+
+[node name="Game" type="Node3D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control"]
+layout_mode = 0
+offset_right = 713.0
+offset_bottom = 67.0
+text = "This is a test of the UI"
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="TestCube" type="MeshInstance3D" parent="World"]
+mesh = SubResource("BoxMesh_wiqns")
+script = ExtResource("1_53eop")
+
+[node name="Area3D" type="Area3D" parent="World/TestCube"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/TestCube/Area3D"]
+shape = SubResource("BoxShape3D_jfhxf")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.867609, -0.142141, 0.476498, -3.89166e-10, 0.958273, 0.285856, -0.497247, -0.248011, 0.831406, 4.06665, 2.69932, 7.57837)
