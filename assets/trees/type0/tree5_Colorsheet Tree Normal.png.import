@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chavdjnekduqb"
-path.s3tc="res://.godot/imported/tree5_Colorsheet Tree Normal.jpg-c4a30d36199b5f4f1f14b1cfe5a6eecd.s3tc.ctex"
+uid="uid://g6ex5u7tgffd"
+path.s3tc="res://.godot/imported/tree5_Colorsheet Tree Normal.png-5bb9a38e7823cbebad7ab4d801610fec.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/trees/type0/tree5_Colorsheet Tree Normal.jpg"
-dest_files=["res://.godot/imported/tree5_Colorsheet Tree Normal.jpg-c4a30d36199b5f4f1f14b1cfe5a6eecd.s3tc.ctex"]
+source_file="res://assets/trees/type0/tree5_Colorsheet Tree Normal.png"
+dest_files=["res://.godot/imported/tree5_Colorsheet Tree Normal.png-5bb9a38e7823cbebad7ab4d801610fec.s3tc.ctex"]
 
 [params]
 
