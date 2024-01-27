@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://rpmqvx4nomne"]
 
 [ext_resource type="Script" path="res://scripts/CubeSpin.gd" id="1_53eop"]
-[ext_resource type="PackedScene" uid="uid://cyiik2808dvai" path="res://assets/trees/type0/tree5.glb" id="2_sagx0"]
+[ext_resource type="PackedScene" uid="uid://uay6fg7kf8a" path="res://assets/trees/type0/tree5.glb" id="2_sagx0"]
 [ext_resource type="Texture2D" uid="uid://dgssfw674fot" path="res://assets/skybox/animestyled_hdr.hdr" id="3_j528f"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_wiqns"]
