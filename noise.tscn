@@ -1,15 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c78p41el4ardf"]
+[gd_scene load_steps=4 format=3 uid="uid://c78p41el4ardf"]
 
 [ext_resource type="Script" path="res://scripts/CustomNoise.gd" id="1_yblmv"]
+[ext_resource type="Texture2D" uid="uid://bu3tj8ivuy4fu" path="res://assets/NoisePreset1.tres" id="2_b518q"]
 [ext_resource type="Script" path="res://scripts/MapPreviewer.gd" id="2_frp7q"]
-[ext_resource type="Gradient" uid="uid://btj1ttcfngjcg" path="res://assets/TerrainGroups/TerrainPreset1.tres" id="2_tfvay"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_8lm8n"]
-noise_type = 3
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_n37al"]
-color_ramp = ExtResource("2_tfvay")
-noise = SubResource("FastNoiseLite_8lm8n")
 
 [node name="Noise" type="Control"]
 layout_mode = 3
@@ -35,7 +28,7 @@ grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = SubResource("NoiseTexture2D_n37al")
+texture = ExtResource("2_b518q")
 
 [node name="Label" type="Label" parent="Panel"]
 layout_mode = 1
@@ -152,3 +145,15 @@ offset_right = -8.0
 offset_bottom = 36.0
 theme_override_font_sizes/font_size = 24
 text = "Gain:"
+
+[node name="Save" type="Button" parent="Panel/Container"]
+anchors_preset = -1
+anchor_left = 0.148
+anchor_top = 0.653
+anchor_right = 0.148
+anchor_bottom = 0.653
+offset_left = -92.496
+offset_top = -24.144
+offset_right = 93.504
+offset_bottom = 23.856
+text = "Save"

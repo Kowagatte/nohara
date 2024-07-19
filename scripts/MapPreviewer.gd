@@ -10,6 +10,7 @@ func _ready():
 	$Octaves.text_changed.connect(_octaves_changed)
 	$Lacunarity.text_changed.connect(_lacunarity_changed)
 	$Gain.text_changed.connect(_gain_changed)
+	$Save.pressed.connect(_download)
 
 func _seed_changed(seed):
 	var hash = int(seed)
@@ -50,3 +51,9 @@ func _lacunarity_changed(lacunarity):
 func _gain_changed(gain):
 	if ensure_numbers($Gain, gain):
 		panel.change_gain(ensure_nonempty($Gain, gain))
+
+func _download():
+	var texture = panel.find_child("TextureRect") as TextureRect
+	var noiseTexture = texture.texture as NoiseTexture2D
+	ResourceSaver.save(noiseTexture, "res://assets/newNoise.tres")
+	
