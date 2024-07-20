@@ -1,12 +1,12 @@
-[gd_resource type="NoiseTexture2D" load_steps=3 format=3]
+[gd_resource type="NoiseTexture2D" load_steps=3 format=3 uid="uid://drx2ulptowsgk"]
 
-[ext_resource type="Gradient" path="res://assets/TerrainGroups/TerrainPreset1.tres" id="1_dg71o"]
+[ext_resource type="Gradient" uid="uid://btj1ttcfngjcg" path="res://assets/TerrainGroups/TerrainPreset1.tres" id="1_hirpm"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_6aodk"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_loxge"]
 noise_type = 3
 seed = 274276203
 domain_warp_amplitude = 0.0
 
 [resource]
-color_ramp = ExtResource("1_dg71o")
-noise = SubResource("FastNoiseLite_6aodk")
+color_ramp = ExtResource("1_hirpm")
+noise = SubResource("FastNoiseLite_loxge")
