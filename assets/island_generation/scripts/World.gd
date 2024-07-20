@@ -47,37 +47,23 @@ func generate_island():
 		var gradient_value = r_value #* 1.5
 		
 		var noise_value = (noise.get_noise_2d(vertex.x, vertex.z) + 1)/2
-		#var value = noise.get_noise_2d(vertex.x, vertex.z)
-		
-		#data.unlock()
-		
-		#if r_value >= 0.97:
-			#value += 1 #-1 * HEIGHT_AMPLITUDE
-		#else:
-		#value -= gradient_value# * gradient_value)
 		
 		#var new_height = clamp(noise_value - gradient_value, -0.3, 1)
 		var new_height = noise_value - gradient_value
 		
+		# Makes y values below water tamer
 		if new_height < 0:
 			new_height = new_height ** 5
 		
-		
-		#if r_value >= 0.95:
-			#vertex.y = -10
-		#else:
-		vertex.y = new_height * HEIGHT_AMPLITUDE #* HEIGHT_AMPLITUDE#* (HEIGHT_AMPLITUDE - (HEIGHT_AMPLITUDE * (r_value ** 2)))
+		vertex.y = new_height * HEIGHT_AMPLITUDE
+		# Generates underwater crevices
 		if new_height < 0:
 			vertex.y -= 1.5 * -vertex.y
-		
-		#vertex.y = (value * HEIGHT_AMPLITUDE)+100
 		
 		data_tool.set_vertex(i, vertex)
 
 
 	array_mesh.clear_surfaces()
-	#for s in range(array_mesh.get_surface_count()):
-	#	array_mesh.surface_remove(s)
 	
 	data_tool.commit_to_surface(array_mesh)
 	surface_tool.begin(Mesh.PRIMITIVE_TRIANGLES)
@@ -95,6 +81,3 @@ func generate_island():
 	mesh_instance.create_trimesh_collision()
 	
 	$Island.add_child(mesh_instance)
-	
-	#ResourceSaver.save(mesh_instance.save, "res://assets/island_generation/Island_Mesh.tscn")
-	
