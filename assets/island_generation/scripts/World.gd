@@ -32,14 +32,16 @@ func generate_island():
 	var array_mesh = surface_tool.commit()
 	data_tool.create_from_surface(array_mesh, 0)
 	
-	var custom_gradient = ResourceLoader.load("res://assets/island_generation/RadialGradient.tres") as GradientTexture2D
-	custom_gradient.width = SIZE+1
-	custom_gradient.height = SIZE+1
+	var custom_gradient = ResourceLoader.load("res://assets/island_generation/RadialGradient2.tres") as Image
+	#custom_gradient.width = SIZE+1
+	#custom_gradient.height = SIZE+1
+	#ResourceSaver.save(custom_gradient.get_image(), "res://assets/island_generation/RadialGradient3.tres")
+	#custom_gradient.get_image().save_png("res://assets/island_generation/RadialGradient3.png")
 	
 	for i in range(data_tool.get_vertex_count()):
 		var vertex = data_tool.get_vertex(i)
 		
-		var data = custom_gradient.get_image()
+		var data = custom_gradient#.get_image()
 		#data.lock()
 		var r_value = data.get_pixel(vertex.x + SIZE * 0.5, vertex.z + SIZE * 0.5).r
 		# White = 1
