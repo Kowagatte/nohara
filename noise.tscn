@@ -1,0 +1,159 @@
+[gd_scene load_steps=4 format=3 uid="uid://c78p41el4ardf"]
+
+[ext_resource type="Script" path="res://scripts/CustomNoise.gd" id="1_yblmv"]
+[ext_resource type="Texture2D" uid="uid://diy35jh3jg608" path="res://assets/NoisePreset1.tres" id="2_b518q"]
+[ext_resource type="Script" path="res://scripts/MapPreviewer.gd" id="2_frp7q"]
+
+[node name="Noise" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1153.0
+offset_bottom = 651.0
+script = ExtResource("1_yblmv")
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -256.0
+offset_top = -512.0
+offset_right = 256.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("2_b518q")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -144.0
+offset_right = 144.0
+offset_bottom = 55.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "Map Previewer"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Container" type="Node" parent="Panel"]
+script = ExtResource("2_frp7q")
+
+[node name="Seed" type="LineEdit" parent="Panel/Container"]
+anchors_preset = -1
+anchor_left = 0.437988
+anchor_top = 0.110599
+anchor_right = 0.700781
+anchor_bottom = 0.192012
+offset_left = 0.437988
+offset_top = 0.331795
+offset_right = 0.437988
+offset_bottom = 0.576035
+theme_override_font_sizes/font_size = 32
+placeholder_text = "0"
+
+[node name="Label2" type="Label" parent="Panel/Container/Seed"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.307
+anchor_right = -0.0330033
+anchor_bottom = 0.849057
+offset_left = 0.0210953
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Seed:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Frequency" type="LineEdit" parent="Panel/Container"]
+offset_left = 187.0
+offset_top = 169.0
+offset_right = 283.0
+offset_bottom = 211.0
+theme_override_font_sizes/font_size = 24
+text = "0.01"
+placeholder_text = "0.01"
+
+[node name="Label" type="Label" parent="Panel/Container/Frequency"]
+layout_mode = 0
+offset_left = -137.0
+offset_top = 2.0
+offset_right = -8.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 24
+text = "Frequency:"
+
+[node name="Octaves" type="LineEdit" parent="Panel/Container"]
+offset_left = 187.0
+offset_top = 221.0
+offset_right = 283.0
+offset_bottom = 263.0
+theme_override_font_sizes/font_size = 24
+text = "5"
+placeholder_text = "5"
+
+[node name="Label" type="Label" parent="Panel/Container/Octaves"]
+layout_mode = 0
+offset_left = -137.0
+offset_top = 2.0
+offset_right = -8.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 24
+text = "Octaves:"
+
+[node name="Lacunarity" type="LineEdit" parent="Panel/Container"]
+offset_left = 187.0
+offset_top = 276.0
+offset_right = 283.0
+offset_bottom = 318.0
+theme_override_font_sizes/font_size = 24
+text = "2"
+placeholder_text = "2"
+
+[node name="Label" type="Label" parent="Panel/Container/Lacunarity"]
+layout_mode = 0
+offset_left = -137.0
+offset_top = 2.0
+offset_right = -8.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 24
+text = "Lacunarity:"
+
+[node name="Gain" type="LineEdit" parent="Panel/Container"]
+offset_left = 187.0
+offset_top = 330.0
+offset_right = 283.0
+offset_bottom = 372.0
+theme_override_font_sizes/font_size = 24
+text = "0.5"
+placeholder_text = "0.5"
+
+[node name="Label" type="Label" parent="Panel/Container/Gain"]
+layout_mode = 0
+offset_left = -137.0
+offset_top = 2.0
+offset_right = -8.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 24
+text = "Gain:"
+
+[node name="Save" type="Button" parent="Panel/Container"]
+anchors_preset = -1
+anchor_left = 0.148
+anchor_top = 0.653
+anchor_right = 0.148
+anchor_bottom = 0.653
+offset_left = -92.496
+offset_top = -24.144
+offset_right = 93.504
+offset_bottom = 23.856
+text = "Save"
