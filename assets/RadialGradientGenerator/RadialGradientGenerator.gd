@@ -3,6 +3,11 @@ extends Node
 
 var rng = RandomNumberGenerator.new() as RandomNumberGenerator
 
+var _gradient: Gradient = Gradient.new():
+	set(_value):
+		_gradient = _value
+		_image = generate_image()
+
 var _size: Vector2 = Vector2(513, 513):
 	set(value):
 		_size = value
@@ -36,55 +41,83 @@ var _points:Array[Vector2]:
 		_image = generate_image()
 		notify_property_list_changed()
 
-var _falloff_intensity: int = 2:
-	set(_value):
-		_falloff_intensity = _value
-		_image = generate_image()
-		notify_property_list_changed()
-
-var _merge_intensity: float = 1.8:
-	set(_value):
-		_merge_intensity = _value
-		_image = generate_image()
-		notify_property_list_changed()
-
 func generate_points():
 	var points: Array[Vector2] = []
-	points.resize(rng.randi_range(1, 7))
+	points.resize(rng.randi_range(1, 5))
 	for p in range(points.size()):
-		points[p] = Vector2(rng.randi_range(0, _size.x), rng.randi_range(0, _size.y))
+		points[p] = Vector2(rng.randi_range(_size.x/5, (_size.x-1)-(_size.x/5)), rng.randi_range(_size.y/5, (_size.y-1)-(_size.y/5)))
 	_points = points
 
+func calculate_radius(point: Vector2):
+	var distances = []
+	# top_edge
+	distances.append(point.distance_to(Vector2(point.x, 0)))
+	# bottom_edge
+	distances.append(point.distance_to(Vector2(point.x, _size.y-1)))
+	# left_edge
+	distances.append(point.distance_to(Vector2(0, point.y)))
+	# right_edge
+	distances.append(point.distance_to(Vector2(_size.x-1, point.y)))
+	
+	distances.sort()
+	
+	return distances[0]
+
 func generate_image():
+	
+	var points = []
+	for point in _points:
+		var radius = calculate_radius(point)
+		points.append(Vector3(point.x, point.y, radius))
+	
 	var image = Image.create(_size.x, _size.y, false, Image.FORMAT_RGBA8)
 	image.fill(Color(255, 255, 255))
 	
-	if _points.size() > 0:
-		var distance: Array[float] = []
-		distance.resize(_points.size())
-		distance.fill(0.0)
-		
-		for x in _size.x:
-			for y in _size.y:
-				
-				for d in range(distance.size()):
-					var dx = (_points[d].x - x) ** 2
-					var dy = (_points[d].y - y) ** 2
-					var distanceToPoint = sqrt(dx + dy)
-					distance[d] = clamp(distanceToPoint / (_size.x / _falloff_intensity), 0, 1)
-				
-				var average = 1.0
-				for d in range(distance.size()):
-					average -= (1 - distance[d]) ** _merge_intensity
-				
-				var total = average #1 - (average - distance.min()) #
-				
-				image.set_pixel(x, y, Color(total, total, total))
-				
+	var ratio = _size.x / _size.y
 	
-	ResourceSaver.save(image, "res://assets/island_generation/RadialGradient2.tres")
+	var pixels = []
+	for i in range(_size.x):
+		pixels.append([])
+		for j in range(_size.y):
+			pixels[i].append(Color(1.0, 1.0, 1.0))
+	
+	for x in range(_size.x):
+		for y in range(_size.y):
+			
+			var count = 0
+			var average = 0.0
+			for p in points:
+				var dist = Vector2(x, y).distance_to(Vector2(p.x, p.y))
+				var color = _gradient.sample(dist / p.z)
+				pixels[x][y] = pixels[x][y].darkened(1 - color.r)
+			
+			#image.set_pixel(x, y, pixels[x][y])
+	
+	blur_image(pixels, image)
+	
+	#ResourceSaver.save(image, "res://assets/island_generation/RadialGradient2.tres")
+	#image.save_png("C:\\Users\\craft\\Desktop\\new_radial.png")
 	
 	return image
+
+func get_neighbors(x, y, blur_amount = 1):
+	var neighbors = []
+	for x2 in range(x-blur_amount, x+blur_amount+1):
+		for y2 in range(y-blur_amount, y+blur_amount+1):
+			if x2 >= 0 and y2 >= 0 and x2 < _size.x and y2 < _size.y:
+				neighbors.append(Vector2(x2, y2))
+	return neighbors
+
+func blur_image(pixels, image):
+	for x in _size.x:
+		for y in _size.y:
+			var neighbors = get_neighbors(x, y, 3)
+			var average = 0.0
+			for n in neighbors:
+				average += pixels[n.x][n.y].r#image.get_pixel(n.x, n.y).r
+			average = average / neighbors.size()
+			
+			image.set_pixel(x, y, Color(average, average, average))
 
 func _get_property_list():
 	var properties = []
@@ -115,13 +148,8 @@ func _get_property_list():
 	})
 	
 	properties.append({
-		"name": "_falloff_intensity",
-		"type": TYPE_INT,
-	})
-	
-	properties.append({
-		"name": "_merge_intensity",
-		"type": TYPE_FLOAT,
+		"name": "_gradient",
+		"type": TYPE_OBJECT,
 	})
 	
 	properties.append({
