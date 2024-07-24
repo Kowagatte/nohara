@@ -95,7 +95,7 @@ func generate_image():
 	
 	blur_image(pixels, image)
 	
-	#ResourceSaver.save(image, "res://assets/island_generation/RadialGradient2.tres")
+	ResourceSaver.save(image, "res://assets/island_generation/RadialGradient2.tres")
 	#image.save_png("C:\\Users\\craft\\Desktop\\new_radial.png")
 	
 	return image
