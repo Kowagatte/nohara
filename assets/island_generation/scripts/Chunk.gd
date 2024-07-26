@@ -9,13 +9,17 @@ var x
 var z
 var chunk_size
 var shouldUnload: bool = true
+var island
 
-func _init(noise, x, z, chunk_size):
+func _init(noise, x, z, chunk_size, island):
 	self.noise = noise
 	self.x = x
 	self.z = z
 	self.chunk_size = chunk_size
+	self.island = island
 
+static func getChunkKey(_x, _z):
+	return str(_x)+","+str(_z)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,6 +36,10 @@ func generateWater():
 	mesh_instance.translate(Vector3(0, 1, 0))
 	
 	add_child(mesh_instance)
+
+#island info
+var offset = null
+var gradient = null
 
 func generate():
 	var surface_tool = SurfaceTool.new()
@@ -52,15 +60,29 @@ func generate():
 	#ResourceSaver.save(custom_gradient.get_image(), "res://assets/island_generation/RadialGradient3.tres")
 	#custom_gradient.get_image().save_png("res://assets/island_generation/RadialGradient3.png")
 	
+	if island != null:
+		gradient = island["data"] as Image
+		var island_origin = Vector3(island["position"]["x"], 0, island["position"]["z"])
+		var pos = Vector3(x, 0, z)
+		#print("pos: " + str(pos))
+		offset = pos - island_origin
+		#print("offset: " + str(offset))
+		#print(island)
+	
 	for i in range(data_tool.get_vertex_count()):
 		var vertex = data_tool.get_vertex(i)
 		
 		#var data = custom_gradient#.get_image()
 		#data.lock()
+		
+		var gradient_value: float = 1.0
+		if island != null:
+			gradient_value = gradient.get_pixel((vertex.x + chunk_size * 0.5) + offset.x, (vertex.z + chunk_size * 0.5) + offset.z).r
+		
 		#var r_value = data.get_pixel(vertex.x + chunk_size * 0.5, vertex.z + chunk_size * 0.5).r
 		# White = 1
 		# Black = 0
-		var gradient_value = 1.0 #* 1.5
+		#var gradient_value = 1.0 #* 1.5
 		
 		var noise_value = (noise.get_noise_2d(vertex.x + x, vertex.z + z) + 1) /2
 		

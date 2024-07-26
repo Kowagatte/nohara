@@ -15,8 +15,13 @@ var chunks = {}
 var unready_chunks = {}
 var thread: Thread
 
+var islands: Islands
+
 
 func _ready():
+	
+	islands = Islands.new()
+	
 	noise = FastNoiseLite.new()
 	#noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
 	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
@@ -27,20 +32,20 @@ func _ready():
 	noise.frequency = 0.008
 	
 	thread = Thread.new()
-	
-	#generate_island()
 
 func addChunk(x, z):
-	var key = str(x)+","+str(z)
+	var key = Chunk.getChunkKey(x, z)
 	if chunks.has(key) or unready_chunks.has(key):
 		return
 	
+	var island = islands.getIsland(key)
+	
 	if not thread.is_started():
-		thread.start(Callable(self, "loadChunk").bind(thread, x, z, key))
+		thread.start(Callable(self, "loadChunk").bind(thread, x, z, key, island))
 		unready_chunks[key] = 1
 
-func loadChunk(_thread, x, z, key):
-	var chunk = Chunk.new(noise, x * CHUNK_SIZE, z * CHUNK_SIZE, CHUNK_SIZE)
+func loadChunk(_thread, x, z, key, island):
+	var chunk = Chunk.new(noise, x * CHUNK_SIZE, z * CHUNK_SIZE, CHUNK_SIZE, island)
 	chunk.visible = false
 	chunk.name = key
 	chunk.set_position(Vector3(x * CHUNK_SIZE, 0, z * CHUNK_SIZE))

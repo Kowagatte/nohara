@@ -1,5 +1,6 @@
 @tool
 extends Node
+class_name RadialGradientGenerator
 
 var rng = RandomNumberGenerator.new() as RandomNumberGenerator
 
@@ -11,7 +12,7 @@ var _gradient: Gradient = Gradient.new():
 var _size: Vector2 = Vector2(513, 513):
 	set(value):
 		_size = value
-		_image = generate_image()
+		#_image = generate_image()
 
 var _image: Image
 
@@ -30,7 +31,6 @@ var _randomize:bool:
 	set(_value):
 		rng.randomize()
 		_seed = rng.seed
-		generate_points()
 		notify_property_list_changed()
 
 var _points:Array[Vector2]:
@@ -41,9 +41,15 @@ var _points:Array[Vector2]:
 		_image = generate_image()
 		notify_property_list_changed()
 
+func create():
+	rng.randomize()
+	_seed = rng.seed
+	return _image
+
 func generate_points():
 	var points: Array[Vector2] = []
-	points.resize(rng.randi_range(1, 5))
+	var min = (_size.x/256)
+	points.resize(rng.randi_range(min, min+3))
 	for p in range(points.size()):
 		points[p] = Vector2(rng.randi_range(_size.x/5, (_size.x-1)-(_size.x/5)), rng.randi_range(_size.y/5, (_size.y-1)-(_size.y/5)))
 	_points = points
@@ -93,7 +99,7 @@ func generate_image():
 	
 	blur_image(pixels, image)
 	
-	ResourceSaver.save(image, "res://assets/island_generation/RadialGradient2.tres")
+	#ResourceSaver.save(image, "res://assets/island_generation/RadialGradient2.tres")
 	#image.save_png("C:\\Users\\craft\\Desktop\\new_radial.png")
 	
 	return image
