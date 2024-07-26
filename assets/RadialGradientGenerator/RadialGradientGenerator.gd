@@ -73,7 +73,7 @@ func generate_image():
 	var image = Image.create(_size.x, _size.y, false, Image.FORMAT_RGBA8)
 	image.fill(Color(255, 255, 255))
 	
-	var ratio = _size.x / _size.y
+	#var ratio = _size.x / _size.y
 	
 	var pixels = []
 	for i in range(_size.x):
@@ -84,8 +84,6 @@ func generate_image():
 	for x in range(_size.x):
 		for y in range(_size.y):
 			
-			var count = 0
-			var average = 0.0
 			for p in points:
 				var dist = Vector2(x, y).distance_to(Vector2(p.x, p.y))
 				var color = _gradient.sample(dist / p.z)
@@ -111,10 +109,10 @@ func get_neighbors(x, y, blur_amount = 1):
 func blur_image(pixels, image):
 	for x in _size.x:
 		for y in _size.y:
-			var neighbors = get_neighbors(x, y, 3)
+			var neighbors = get_neighbors(x, y, 1)
 			var average = 0.0
 			for n in neighbors:
-				average += pixels[n.x][n.y].r#image.get_pixel(n.x, n.y).r
+				average += pixels[n.x][n.y].r
 			average = average / neighbors.size()
 			
 			image.set_pixel(x, y, Color(average, average, average))
