@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2utb7h4tfmm"]
+
+[ext_resource type="Script" path="res://assets/ChatBox/scripts/ChatBox.gd" id="1_tma1u"]
+[ext_resource type="Script" path="res://assets/ChatBox/scripts/ChatContainer.gd" id="2_kw5jw"]
+
+[node name="ChatBox" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tma1u")
+
+[node name="Container" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.478
+anchor_bottom = 0.478
+offset_top = 0.255981
+offset_right = 539.0
+offset_bottom = 306.256
+script = ExtResource("2_kw5jw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container"]
+layout_mode = 2
+alignment = 2
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 0
+offset_top = 617.0
+offset_right = 539.0
+offset_bottom = 648.0
