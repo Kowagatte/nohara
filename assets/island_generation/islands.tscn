@@ -1,16 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://debv2bi8apjsb"]
+[gd_scene load_steps=5 format=3 uid="uid://debv2bi8apjsb"]
 
 [ext_resource type="Script" path="res://assets/island_generation/scripts/World.gd" id="1_sr2f7"]
 [ext_resource type="Script" path="res://ExternalAssets/Simple FreeLook Camera/camera.gd" id="2_f6yux"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ikcs0"]
-transparency = 1
-albedo_color = Color(0.0941176, 0.607843, 1, 0.698039)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_loi57"]
-material = SubResource("StandardMaterial3D_ikcs0")
-size = Vector2(512, 512)
-center_offset = Vector3(0, 1, 0)
 
 [sub_resource type="BoxMesh" id="BoxMesh_pa0yx"]
 
@@ -27,9 +18,6 @@ script = ExtResource("2_f6yux")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 300, 0)
-
-[node name="Water" type="MeshInstance3D" parent="."]
-mesh = SubResource("PlaneMesh_loi57")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 70, 0)
