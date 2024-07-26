@@ -11,7 +11,7 @@ func _init(_content):
 	self.text = format()
 
 func getLocalTime():
-	var dateTime = Time.get_datetime_string_from_unix_time(time)
+	var dateTime = Time.get_datetime_string_from_unix_time(int(time))
 	return dateTime
 
 func format():
