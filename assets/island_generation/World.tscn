@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://debv2bi8apjsb"]
+
+[ext_resource type="Script" path="res://assets/island_generation/scripts/World.gd" id="1_8b5wu"]
+[ext_resource type="Script" path="res://ExternalAssets/Simple FreeLook Camera/camera.gd" id="2_ekuc1"]
+[ext_resource type="Script" path="res://assets/island_generation/scripts/Debug.gd" id="3_f6rim"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_pa0yx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d1as2"]
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_8b5wu")
+
+[node name="Chunks" type="Node3D" parent="."]
+
+[node name="Observer" type="Camera3D" parent="."]
+transform = Transform3D(0.931691, 0.236876, -0.275393, 0, 0.758134, 0.652098, 0.363251, -0.607554, 0.706347, 0, 159, 0)
+script = ExtResource("2_ekuc1")
+
+[node name="UI" type="Control" parent="Observer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Label" type="Label" parent="Observer/UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -265.0
+offset_bottom = 29.0
+grow_horizontal = 0
+script = ExtResource("3_f6rim")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 300, 0)
+
+[node name="Cube" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 70, 0)
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cube"]
+mesh = SubResource("BoxMesh_pa0yx")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube"]
+shape = SubResource("BoxShape3D_d1as2")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2o7e0i1wi5ce"]
+
+[ext_resource type="Script" path="res://assets/island_generation/scripts/Chunk.gd" id="1_u74mu"]
+
+[node name="Chunk" type="Node3D"]
+script = ExtResource("1_u74mu")
