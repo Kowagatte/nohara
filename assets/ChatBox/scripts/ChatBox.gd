@@ -13,7 +13,7 @@ func insertChat(text):
 	chatContainer.add_child(chat)
 	input.text = ""
 
-func callCommand():
+func callCommand(_content):
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
