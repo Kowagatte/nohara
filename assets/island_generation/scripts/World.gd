@@ -45,6 +45,11 @@ func addChunk(x, z):
 		unready_chunks[key] = 1
 
 func loadChunk(_thread, x, z, key, island):
+	
+	if island != null:
+		if island["data"] == null:
+			islands.generateIslandData(key)
+	
 	var chunk = Chunk.new(noise, x * CHUNK_SIZE, z * CHUNK_SIZE, CHUNK_SIZE, island)
 	chunk.visible = false
 	chunk.name = key

@@ -1,12 +1,33 @@
 extends Node
 class_name Islands
 
+# Contains the island information, islands are indexed based on their position
+# in the array.
 var islands = []
+
+# Dictionary for all chunks containing an island. The value at any given
+# key is the index of the island the chunk is part of.
 var chunks = {}
 
 func _init():
-	createIsland(Vector2(0, 0), 2)
+	instantiateWorldMap()
+	#createIsland(Vector2(0, 0), 4)
 	#islands[0] = createSpawnIsland()
+
+func instantiateWorldMap():
+	var maxRadius = getIslandSizeInChunks(IslandSize.HUGE) + 1
+	var worldSize = Vector2(1001, 1001)
+	#var origin = Vector2(floor(worldSize.x / 2), floor(worldSize.y / 2))
+	var origin = Vector2(0, 0)
+	var poisson = Poisson.new(1337, false, maxRadius, worldSize, origin)
+	var data = poisson.data
+	
+	# Convert poisson coords to world coords
+	
+	for point in poisson.data:
+		createIsland(point, randi_range(0, 4))
+	
+	print(islands)
 
 func getIsland(key):
 	if chunks.has(key):
@@ -27,7 +48,7 @@ func createIsland(position, size):
 			else:
 				chunks[key] = islands.size()
 	
-	var data = createGradient(size)
+	var data = null#createGradient(size)
 	
 	var island = {
 		"position": {
@@ -44,33 +65,24 @@ func createIsland(position, size):
 	
 	islands.append(island)
 
-#func createSpawnIsland():
-	#var data = createGradient(1)
-	#return {
-	#"position": {
-		#"x": 0,
-		#"z": 0
-	#},
-	#"size": 1,
-	#"span": {
-		#"x": 3,
-		#"z": 3
-	#},
-	#"data": data
-#}
+func generateIslandData(chunkKey):
+	if chunks.has(chunkKey):
+		var island = islands[chunks.get(chunkKey)]
+		var islandSize = island["size"]
+		var gradient = createGradient(islandSize)
+		island["data"] = gradient
 
 func createGradient(size):
 	var sizeInMeters = getIslandSize(size) + 1
 	var gradient = RadialGradientGenerator.new()
 	gradient._size = Vector2(sizeInMeters, sizeInMeters)
 	gradient.create()
-	gradient._image.save_png("c:\\Users\\craft\\Desktop\\test.png")
 	return gradient._image
 
 # An Islands selected chunks is a perfect square, this returns the length in chunks.
 # size = IslandSize or int represnting the size (1-4)
 func getIslandSizeInChunks(size):
-	return (size * 4)
+	return (size * 256) / 64#(size * 4)
 
 # An Islands selected chunks is a perfect square, this returns the length in meters.
 # size = IslandSize or int represnting the size (1-4)
@@ -80,6 +92,6 @@ func getIslandSize(size):
 # Enum for Island sizes
 # SMALL = 256m or 4x4 chunks
 # MEDIUM = 512m or 8x8 chunks
-# LARGE = 1024m or 16x16 chunks
-# HUGE = 2048m or 32x32 chunks
+# LARGE = 768m or 12x12 chunks
+# HUGE = 1024m or 16x16 chunks
 enum IslandSize {SMALL = 1, MEDIUM = 2, LARGE = 3, HUGE = 4}
