@@ -21,6 +21,7 @@ func instantiateWorldMap():
 	var origin = Vector2(0, 0)
 	var poisson = Poisson.new(1337, false, maxRadius, worldSize, origin)
 	var data = poisson.data
+	print(data.size())
 	
 	# Convert poisson coords to world coords
 	
