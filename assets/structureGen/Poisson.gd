@@ -37,8 +37,8 @@ func generate():
 	var height = _size.y
 	
 	# Calculate the rows and columns for the background grid
-	var cols = floor(width / w)
-	var rows = floor(height / w)
+	var cols = ceil(width / w)
+	var rows = ceil(height / w)
 	
 	var active = []
 	
@@ -47,16 +47,17 @@ func generate():
 	grid.resize(cols*rows)
 	grid.fill(-1)
 	
+	var point = origin
+	
 	# Step 1 - select origin (random point)
-	var point: Vector2
 	if isOriginRandomized:
-		point = Vector2(rng.randi_range(0, width-1), rng.randi_range(0, height-1))
-	else:
-		point = origin
-
+		var x = rng.randi_range(0, width-1)
+		var y = rng.randi_range(0, height-1)
+		point = Vector2(x, y)
+	
 	var i = floor(point.x/w)
 	var j = floor(point.y/w)
-	grid[i + j * cols] = point
+	grid[(i * rows) + j] = point
 	active.push_back(point)
 	
 	# Step 2
@@ -72,17 +73,18 @@ func generate():
 			sample += point
 			sample = Vector2(ceil(sample.x), ceil(sample.y))
 			
-			var col = floor(sample.x / w)
-			var row = floor(sample.y / w)
+			var row = floor(sample.x / w)
+			var col = floor(sample.y / w)
 			
-			if ( col >= 0) and (col < cols) and (row >= 0) and (row < rows):	
-				if typeof(grid[col + row * cols]) == TYPE_INT:
+			if (sample.x >= 0) and (sample.x < _size.x) and (sample.y >= 0) and (sample.y < _size.y):
+			#if ( col >= 0) and (col < cols) and (row >= 0) and (row < rows):	
+				if typeof(grid[(row * rows) + col]) == TYPE_INT:
 					var valid = true
 					# Must check 2 chunks in each direction since the diagonal
 					# of a given chunk is r not the width.
 					for n in range(-2, 3):
 						for m in range(-2, 3):
-							var neighborIndex = (col + n) + (row + m) * cols
+							var neighborIndex = ((row + n) * rows ) + (col + m)
 							if (neighborIndex >= 0) and (neighborIndex < grid.size()):
 								var neighbor = grid[neighborIndex]
 								if typeof(neighbor) == TYPE_VECTOR2:
@@ -91,7 +93,7 @@ func generate():
 										valid = false
 					if valid:
 						found = true
-						grid[col + row * cols] = sample
+						grid[(row * rows) + col] = sample
 						active.push_back(sample)
 						break
 		if not found:
