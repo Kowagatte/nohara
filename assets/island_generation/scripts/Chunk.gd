@@ -61,7 +61,7 @@ func generate():
 	#custom_gradient.get_image().save_png("res://assets/island_generation/RadialGradient3.png")
 	
 	if island != null:
-		gradient = island["data"] as Image
+		gradient = island["data"]# as Image
 		var island_origin = Vector3(island["position"]["x"], 0, island["position"]["z"])
 		var pos = Vector3(x, 0, z)
 		#print("pos: " + str(pos))
@@ -77,7 +77,8 @@ func generate():
 		
 		var gradient_value: float = 1.0
 		if island != null:
-			gradient_value = gradient.get_pixel((vertex.x + chunk_size * 0.5) + offset.x, (vertex.z + chunk_size * 0.5) + offset.z).r
+			gradient_value = gradient[(vertex.x + chunk_size * 0.5) + offset.x][(vertex.z + chunk_size * 0.5) + offset.z]
+			#gradient_value = gradient.get_pixel((vertex.x + chunk_size * 0.5) + offset.x, (vertex.z + chunk_size * 0.5) + offset.z).r
 		
 		#var r_value = data.get_pixel(vertex.x + chunk_size * 0.5, vertex.z + chunk_size * 0.5).r
 		# White = 1
