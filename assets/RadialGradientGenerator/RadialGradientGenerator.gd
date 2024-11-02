@@ -7,7 +7,8 @@ var rng = RandomNumberGenerator.new() as RandomNumberGenerator
 var _gradient: Gradient = Gradient.new():
 	set(_value):
 		_gradient = _value
-		_image = generate_image()
+		if Engine.is_editor_hint():
+			_image = generate_image()
 
 var _size: Vector2 = Vector2(513, 513):
 	set(value):
@@ -25,7 +26,8 @@ var _seed:int = 0:
 		_seed = _value
 		rng.seed = _value
 		generate_points()
-		notify_property_list_changed()
+		if Engine.is_editor_hint():
+			notify_property_list_changed()
 
 var _randomize:bool:
 	set(_value):
@@ -38,8 +40,9 @@ var _points:Array[Vector2]:
 		return _points
 	set(value):
 		_points = value
-		_image = generate_image()
-		notify_property_list_changed()
+		if Engine.is_editor_hint():
+			_image = generate_image()
+			notify_property_list_changed()
 
 func create():
 	rng.randomize()

@@ -21,6 +21,7 @@ func instantiateWorldMap():
 	var origin = Vector2(0, 0)
 	var poisson = Poisson.new(1337, false, maxRadius, worldSize, origin)
 	var data = poisson.data
+	print(data.size())
 	
 	# Convert poisson coords to world coords
 	
@@ -74,10 +75,8 @@ func generateIslandData(chunkKey):
 
 func createGradient(size):
 	var sizeInMeters = getIslandSize(size) + 1
-	var gradient = RadialGradientGenerator.new()
-	gradient._size = Vector2(sizeInMeters, sizeInMeters)
-	gradient.create()
-	return gradient._image
+	var gradient = GradientGenerator.new(Vector2(sizeInMeters, sizeInMeters), randi())
+	return gradient.data
 
 # An Islands selected chunks is a perfect square, this returns the length in chunks.
 # size = IslandSize or int represnting the size (1-4)
