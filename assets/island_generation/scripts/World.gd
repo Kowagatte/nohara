@@ -4,17 +4,25 @@ extends Node3D
 const SIZE = 256 * 2
 const HEIGHT_AMPLITUDE = 60
 
-func _ready():
-	generate_island()
-	
+# For chunking system
+var noise: FastNoiseLite
+# Size in meters for each chunk
+const CHUNK_SIZE = 64
+# Number of chunks to load at a time
+const CHUNK_AMOUNT = 16#16
 
-func generate_island():
-	#randomize() #generates the islands seed TODO Change this to be generated on world creation
+var chunks = {}
+var unready_chunks = {}
+var thread: Thread
+
+var islands: Islands
+
+
+func _ready():
 	
-	var surface_tool = SurfaceTool.new()
-	var data_tool = MeshDataTool.new()
+	islands = Islands.new()
 	
-	var noise = FastNoiseLite.new()
+	noise = FastNoiseLite.new()
 	#noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
 	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
 	noise.seed = 1337 #randi()
@@ -23,63 +31,74 @@ func generate_island():
 	noise.fractal_gain = 0.7
 	noise.frequency = 0.008
 	
-	var plane_mesh = PlaneMesh.new()
-	plane_mesh.size = Vector2(SIZE, SIZE)
-	plane_mesh.subdivide_depth = SIZE * 0.5
-	plane_mesh.subdivide_width = SIZE * 0.5
+	thread = Thread.new()
+
+func addChunk(x, z):
+	var key = Chunk.getChunkKey(x, z)
+	if chunks.has(key) or unready_chunks.has(key):
+		return
 	
-	surface_tool.create_from(plane_mesh, 0)
-	var array_mesh = surface_tool.commit()
-	data_tool.create_from_surface(array_mesh, 0)
+	var island = islands.getIsland(key)
 	
-	var custom_gradient = ResourceLoader.load("res://assets/island_generation/RadialGradient2.tres") as Image
-	#custom_gradient.width = SIZE+1
-	#custom_gradient.height = SIZE+1
-	#ResourceSaver.save(custom_gradient.get_image(), "res://assets/island_generation/RadialGradient3.tres")
-	#custom_gradient.get_image().save_png("res://assets/island_generation/RadialGradient3.png")
+	if not thread.is_started():
+		thread.start(Callable(self, "loadChunk").bind(thread, x, z, key, island))
+		unready_chunks[key] = 1
+
+func loadChunk(_thread, x, z, key, island):
 	
-	for i in range(data_tool.get_vertex_count()):
-		var vertex = data_tool.get_vertex(i)
-		
-		var data = custom_gradient#.get_image()
-		#data.lock()
-		var r_value = data.get_pixel(vertex.x + SIZE * 0.5, vertex.z + SIZE * 0.5).r
-		# White = 1
-		# Black = 0
-		var gradient_value = r_value #* 1.5
-		
-		var noise_value = (noise.get_noise_2d(vertex.x, vertex.z) + 1)/2
-		
-		#var new_height = clamp(noise_value - gradient_value, -0.3, 1)
-		var new_height = noise_value - gradient_value
-		
-		# Makes y values below water tamer
-		if new_height < 0:
-			new_height = new_height ** 5
-		
-		vertex.y = new_height * HEIGHT_AMPLITUDE
-		# Generates underwater crevices
-		if new_height < 0:
-			vertex.y -= 1.5 * -vertex.y
-		
-		data_tool.set_vertex(i, vertex)
+	if island != null:
+		if island["data"] == null:
+			islands.generateIslandData(key)
+	
+	var chunk = Chunk.new(noise, x * CHUNK_SIZE, z * CHUNK_SIZE, CHUNK_SIZE, island)
+	chunk.visible = false
+	chunk.name = key
+	chunk.set_position(Vector3(x * CHUNK_SIZE, 0, z * CHUNK_SIZE))
+	
+	call_deferred("loadDone", chunk, _thread, key)
+
+func loadDone(chunk, _thread, key):
+	chunk.visible = true
+	$Chunks.add_child(chunk)
+	chunks[key] = chunk
+	unready_chunks.erase(key)
+	_thread.wait_to_finish()
+
+func getChunk(x, z):
+	var key = str(x)+","+str(z)
+	if chunks.has(key):
+		return chunks.get(key)
+	else:
+		return null
+
+func _process(_delta):
+	updateChunks()
+	cleanChunks()
+	resetChunks()
+
+func updateChunks():
+	var _position = ($Observer as FreeLookCamera).position
+	var px = _position.x / CHUNK_SIZE
+	var pz = _position.z / CHUNK_SIZE
+	
+	for x in range(px - CHUNK_AMOUNT * 0.5, px + CHUNK_AMOUNT * 0.5):
+		for z in range(pz - CHUNK_AMOUNT * 0.5, pz + CHUNK_AMOUNT * 0.5):
+			addChunk(x, z)
+			var chunk = getChunk(x, z)
+			if chunk != null:
+				chunk.shouldUnload = false
+
+func cleanChunks():
+	for key in chunks:
+		var chunk = chunks[key]
+		if chunk.shouldUnload:
+			chunk.visible = false
+			chunk.queue_free()
+			chunks.erase(key)
+	pass
+
+func resetChunks():
+	for key in chunks:
+		chunks[key].shouldUnload = true
 
 
-	array_mesh.clear_surfaces()
-	
-	data_tool.commit_to_surface(array_mesh)
-	surface_tool.begin(Mesh.PRIMITIVE_TRIANGLES)
-	surface_tool.create_from(array_mesh, 0)
-	surface_tool.generate_normals()
-	
-	var mesh_instance = MeshInstance3D.new()
-	mesh_instance.mesh = surface_tool.commit()
-	
-	var material = StandardMaterial3D.new()
-	material.albedo_color = Color(0.0, 0.8, 0.4)
-	
-	mesh_instance.material_override = material
-	
-	mesh_instance.create_trimesh_collision()
-	
-	$Island.add_child(mesh_instance)
