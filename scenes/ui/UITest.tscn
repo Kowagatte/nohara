@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=4 uid="uid://0oiydlatc30v"]
+[gd_scene load_steps=14 format=4 uid="uid://0oiydlatc30v"]
 
 [ext_resource type="Texture2D" uid="uid://cav7nxpyxogrr" path="res://scenes/playermovement/texture_07.png" id="1_ce4yx"]
 [ext_resource type="Texture2D" uid="uid://dgssfw674fot" path="res://assets/skybox/animestyled_hdr.hdr" id="2_v5o2n"]
 [ext_resource type="PackedScene" uid="uid://28myjajwb3c0" path="res://scenes/playermovement/models/character.tscn" id="3_mkbwv"]
 [ext_resource type="Texture2D" uid="uid://b0kvcmpcbbc78" path="res://scenes/ui/models/log_Material.jpg" id="4_hwso8"]
-[ext_resource type="Script" path="res://scenes/ui/scripts/moveable.gd" id="4_ucrif"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_np8y5"]
 albedo_texture = ExtResource("1_ce4yx")
@@ -86,10 +85,8 @@ transform = Transform3D(0.00760855, 0.887735, -0.460292, -0.0146721, 0.460355, 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1149, 2.50338, 2.12389)
-mass = 4.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1149, 2.58152, 2.12389)
 physics_material_override = SubResource("PhysicsMaterial_gr4gr")
-script = ExtResource("4_ucrif")
 
 [node name="log_low_Material_001_0" type="MeshInstance3D" parent="RigidBody3D"]
 transform = Transform3D(0.0940714, -0.0135322, 0.0311039, -0.0339201, -0.0375291, 0.0862612, -2.98023e-09, -0.0916976, -0.0398943, 0, 0, 0)
@@ -97,5 +94,18 @@ mesh = SubResource("ArrayMesh_bqv8f")
 skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(0.927184, 0.374607, 0, -0.329522, 0.815596, 0.475624, 0.178172, -0.440991, 0.879649, 0.0150676, -0.00380683, -0.0107884)
+shape = SubResource("CylinderShape3D_g7cej")
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.39496, 2.50338, 2.38834)
+physics_material_override = SubResource("PhysicsMaterial_gr4gr")
+
+[node name="log_low_Material_001_0" type="MeshInstance3D" parent="RigidBody3D2"]
+transform = Transform3D(0.0940714, -0.0135322, 0.0311039, -0.0339201, -0.0375291, 0.0862612, -2.98023e-09, -0.0916976, -0.0398943, 0, 0, 0)
+mesh = SubResource("ArrayMesh_bqv8f")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2"]
 transform = Transform3D(0.927184, 0.374607, 0, -0.329522, 0.815596, 0.475624, 0.178172, -0.440991, 0.879649, 0.0150676, -0.00380683, -0.0107884)
 shape = SubResource("CylinderShape3D_g7cej")

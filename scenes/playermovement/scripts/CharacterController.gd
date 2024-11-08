@@ -67,18 +67,11 @@ func _physics_process(delta):
 	if not velocity:
 		idle.emit()
 
+	# Physics to apply a Force/Impulse to kinematic bodies
 	var v1 = velocity
 	if move_and_slide():
 		for i in get_slide_collision_count():
 			var collision = get_slide_collision(i)
 			var collider = collision.get_collider()
 			if collider is RigidBody3D:
-				var v2 = collision.get_collider_velocity()
-				var m2 = collider.mass
-				print(((velocity - v1) * 80))
-				collider.apply_central_impulse(collision.get_normal() * ((velocity - v1) * 80) * delta)
-				#((80/m2) * v1)
-				
-				
-				#print(v1)
-		pass
+				collider.apply_central_impulse((-(velocity - v1) * 80) * delta)
