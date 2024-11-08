@@ -100,5 +100,3 @@ func cleanChunks():
 func resetChunks():
 	for key in chunks:
 		chunks[key].shouldUnload = true
-
-
