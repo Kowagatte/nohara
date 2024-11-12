@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=4 uid="uid://0oiydlatc30v"]
+[gd_scene load_steps=15 format=4 uid="uid://0oiydlatc30v"]
 
 [ext_resource type="Texture2D" uid="uid://cav7nxpyxogrr" path="res://scenes/playermovement/texture_07.png" id="1_ce4yx"]
 [ext_resource type="Texture2D" uid="uid://dgssfw674fot" path="res://assets/skybox/animestyled_hdr.hdr" id="2_v5o2n"]
 [ext_resource type="PackedScene" uid="uid://28myjajwb3c0" path="res://scenes/playermovement/models/character.tscn" id="3_mkbwv"]
 [ext_resource type="Texture2D" uid="uid://b0kvcmpcbbc78" path="res://scenes/ui/models/log_Material.jpg" id="4_hwso8"]
+[ext_resource type="Texture2D" uid="uid://gcx1m3d60n7g" path="res://scenes/ui/textures/crosshair.png" id="5_omgat"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_np8y5"]
 albedo_texture = ExtResource("1_ce4yx")
@@ -109,3 +110,36 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2"]
 transform = Transform3D(0.927184, 0.374607, 0, -0.329522, 0.815596, 0.475624, 0.178172, -0.440991, 0.879649, 0.0150676, -0.00380683, -0.0107884)
 shape = SubResource("CylinderShape3D_g7cej")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Chat" type="Control" parent="UI"]
+layout_mode = 1
+anchor_top = 0.582
+anchor_right = 0.385
+anchor_bottom = 0.889
+offset_top = -0.136017
+offset_right = -0.52002
+offset_bottom = -0.0720215
+
+[node name="Crosshair" type="TextureRect" parent="UI"]
+modulate = Color(0.776471, 0.788235, 0.8, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_omgat")
