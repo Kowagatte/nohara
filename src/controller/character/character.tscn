@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=4 uid="uid://28myjajwb3c0"]
+[gd_scene load_steps=15 format=4 uid="uid://28myjajwb3c0"]
 
 [ext_resource type="Script" path="res://src/controller/character/CharacterController.gd" id="1_iqd1u"]
+[ext_resource type="Script" path="res://src/controller/character/LookingAt.gd" id="2_2lp7v"]
 [ext_resource type="Script" path="res://src/controller/character/AnimationController.gd" id="3_mt1ae"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lmc5a"]
@@ -3130,9 +3131,10 @@ script = ExtResource("1_iqd1u")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00759854, 1.03169, -0.203215)
 fov = 100.0
 
-[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+[node name="LookingAt" type="RayCast3D" parent="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 target_position = Vector3(0, -1.5, 0)
+script = ExtResource("2_2lp7v")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.634918, 0)

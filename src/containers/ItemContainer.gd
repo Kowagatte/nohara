@@ -27,8 +27,9 @@ func getItem(x, y):
 func containsItem(itemName: String) -> Array:
 	for i in rows:
 		for j in columns:
-			if contents[i][j].itemName == itemName:
-				return [true, Vector2(i, j)]
+			if contents[i][j] != null:
+				if contents[i][j].itemName == itemName:
+					return [true, Vector2(i, j)]
 	return [false, null]
 
 func getFirstEmpty():
@@ -59,7 +60,7 @@ func addItem(item: Item) -> bool:
 	else:
 		var emptySpot = getFirstEmpty()
 		if emptySpot != null:
-			setItemAtPosition(emptySpot.x, emptySpot.y, item)
+			setItemAtPosition(item, emptySpot.x, emptySpot.y)
 			_update()
 			return true
 		else:

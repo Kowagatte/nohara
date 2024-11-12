@@ -6,8 +6,9 @@ func _input(event: InputEvent) -> void:
 	
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_X:
-				var log = preload("res://src/items/Log.tscn").instantiate() as Item
-				inventory.setItemAtPosition(log, 0, 0)
+				var log = preload("res://src/items/LogItem.tscn").instantiate() as Item
+				inventory.addItem(log)
+				#inventory.setItemAtPosition(log, 0, 0)
 	
 	if event.is_action_pressed("toggle_inventory"):
 		inventory.visible = not inventory.visible
