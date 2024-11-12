@@ -1,10 +1,20 @@
 extends Control
 
+@onready var inventory: ItemContainer = $Inventory
 
 func _input(event: InputEvent) -> void:
 	
+	if event is InputEventKey:
+		if event.pressed and event.keycode == KEY_X:
+				var log = preload("res://src/items/Log.tscn").instantiate() as Item
+				inventory.setItemAtPosition(log, 0, 0)
+	
 	if event.is_action_pressed("toggle_inventory"):
-		print("1")
+		inventory.visible = not inventory.visible
+		if inventory.visible:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	if event.is_action_pressed("toggle_options"):
 		print("2")

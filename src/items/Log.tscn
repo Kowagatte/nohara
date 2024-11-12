@@ -50,12 +50,11 @@ shadow_mesh = SubResource("ArrayMesh_o44my")
 height = 0.374761
 radius = 0.0919056
 
-[node name="Log" type="Node"]
+[node name="Log" type="Node3D"]
 script = ExtResource("1_0tfhm")
 itemName = "Log"
 
 [node name="Log3D" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1149, 2.58152, 2.12389)
 physics_material_override = SubResource("PhysicsMaterial_ry7ns")
 
 [node name="LogMesh" type="MeshInstance3D" parent="Log3D"]
@@ -73,6 +72,7 @@ transform = Transform3D(0.927184, 0.374607, 0, -0.329522, 0.815596, 0.475624, 0.
 shape = SubResource("CylinderShape3D_nlo6p")
 
 [node name="Texture" type="TextureRect" parent="."]
+visible = false
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("3_k4865")
