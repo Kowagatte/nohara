@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b0kvcmpcbbc78"
-path.s3tc="res://.godot/imported/log_Material.jpg-6767e2caa0ef8323d8ac027503a3dc16.s3tc.ctex"
+path.s3tc="res://.godot/imported/log_Material.jpg-5f682f3ef669f411c73caad86dde30b5.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://scenes/ui/models/log_Material.jpg"
-dest_files=["res://.godot/imported/log_Material.jpg-6767e2caa0ef8323d8ac027503a3dc16.s3tc.ctex"]
+source_file="res://textures/log/model/log_Material.jpg"
+dest_files=["res://.godot/imported/log_Material.jpg-5f682f3ef669f411c73caad86dde30b5.s3tc.ctex"]
 
 [params]
 

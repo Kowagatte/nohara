@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cx0e1sakfvli7"
-path="res://.godot/imported/log.glb-69b77e6230fb4db1fa5af66f409f458b.scn"
+path="res://.godot/imported/log.glb-5e6720c9056e3afcb562701929b5bfef.scn"
 
 [deps]
 
-source_file="res://scenes/ui/models/log.glb"
-dest_files=["res://.godot/imported/log.glb-69b77e6230fb4db1fa5af66f409f458b.scn"]
+source_file="res://textures/log/model/log.glb"
+dest_files=["res://.godot/imported/log.glb-5e6720c9056e3afcb562701929b5bfef.scn"]
 
 [params]
 
@@ -17,6 +17,7 @@ nodes/root_type=""
 nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
 meshes/ensure_tangents=true
 meshes/generate_lods=true
 meshes/create_shadow_meshes=true
@@ -28,6 +29,7 @@ animation/import=true
 animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={}
 gltf/naming_version=1

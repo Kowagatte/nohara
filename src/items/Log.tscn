@@ -1,35 +1,18 @@
-[gd_scene load_steps=16 format=4 uid="uid://0oiydlatc30v"]
+[gd_scene load_steps=9 format=4 uid="uid://bnbed4yrap5ra"]
 
-[ext_resource type="Texture2D" uid="uid://cav7nxpyxogrr" path="res://scenes/playermovement/texture_07.png" id="1_ce4yx"]
-[ext_resource type="Texture2D" uid="uid://dgssfw674fot" path="res://assets/skybox/animestyled_hdr.hdr" id="2_v5o2n"]
-[ext_resource type="PackedScene" uid="uid://28myjajwb3c0" path="res://scenes/playermovement/models/character.tscn" id="3_mkbwv"]
-[ext_resource type="Texture2D" uid="uid://b0kvcmpcbbc78" path="res://textures/log/model/log_Material.jpg" id="4_hwso8"]
-[ext_resource type="Script" path="res://scenes/ui/scripts/UI.gd" id="5_1xxm2"]
-[ext_resource type="Texture2D" uid="uid://gcx1m3d60n7g" path="res://scenes/ui/textures/crosshair.png" id="5_omgat"]
+[ext_resource type="Script" path="res://src/items/Item.gd" id="1_0tfhm"]
+[ext_resource type="Texture2D" uid="uid://b0kvcmpcbbc78" path="res://textures/log/model/log_Material.jpg" id="2_kln2o"]
+[ext_resource type="Texture2D" uid="uid://54e4wetue8nj" path="res://textures/log/log.png" id="3_k4865"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_np8y5"]
-albedo_texture = ExtResource("1_ce4yx")
-uv1_triplanar = true
-
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_y8if1"]
-panorama = ExtResource("2_v5o2n")
-
-[sub_resource type="Sky" id="Sky_3guo0"]
-sky_material = SubResource("PanoramaSkyMaterial_y8if1")
-
-[sub_resource type="Environment" id="Environment_yokcp"]
-background_mode = 2
-sky = SubResource("Sky_3guo0")
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gr4gr"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ry7ns"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m24av"]
 resource_name = "Material.003"
 cull_mode = 2
-albedo_texture = ExtResource("4_hwso8")
+albedo_texture = ExtResource("2_kln2o")
 roughness = 0.5
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_uksc6"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_o44my"]
 _surfaces = [{
 "aabb": AABB(-0.982741, -1.70933, -1.87943, 1.96299, 2.67286, 3.75787),
 "format": 34896613377,
@@ -44,7 +27,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_bqv8f"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_lckvd"]
 resource_name = "log_log_low_Material_001_0"
 _surfaces = [{
 "aabb": AABB(-0.982741, -1.70933, -1.87943, 1.96299, 2.67286, 3.75787),
@@ -61,87 +44,35 @@ _surfaces = [{
 "vertex_data": PackedByteArray("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")
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_uksc6")
+shadow_mesh = SubResource("ArrayMesh_o44my")
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_g7cej"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_nlo6p"]
 height = 0.374761
 radius = 0.0919056
 
-[node name="UiTest" type="Node3D"]
+[node name="Log" type="Node"]
+script = ExtResource("1_0tfhm")
+itemName = "Log"
 
-[node name="Ground" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-use_collision = true
-size = Vector3(100, 1, 100)
-material = SubResource("StandardMaterial3D_np8y5")
-
-[node name="env" type="Node3D" parent="."]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="env"]
-environment = SubResource("Environment_yokcp")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="env"]
-transform = Transform3D(0.00760855, 0.887735, -0.460292, -0.0146721, 0.460355, 0.887614, 0.999863, -1.86239e-09, 0.0165276, -138.845, 159.601, 0)
-
-[node name="CharacterBody3D" parent="." instance=ExtResource("3_mkbwv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
+[node name="Log3D" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1149, 2.58152, 2.12389)
-physics_material_override = SubResource("PhysicsMaterial_gr4gr")
+physics_material_override = SubResource("PhysicsMaterial_ry7ns")
 
-[node name="log_low_Material_001_0" type="MeshInstance3D" parent="RigidBody3D"]
+[node name="LogMesh" type="MeshInstance3D" parent="Log3D"]
 transform = Transform3D(0.0940714, -0.0135322, 0.0311039, -0.0339201, -0.0375291, 0.0862612, -2.98023e-09, -0.0916976, -0.0398943, 0, 0, 0)
-mesh = SubResource("ArrayMesh_bqv8f")
+mesh = SubResource("ArrayMesh_lckvd")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
-transform = Transform3D(0.927184, 0.374607, 0, -0.329522, 0.815596, 0.475624, 0.178172, -0.440991, 0.879649, 0.0150676, -0.00380683, -0.0107884)
-shape = SubResource("CylinderShape3D_g7cej")
-
-[node name="RigidBody3D2" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.39496, 2.50338, 2.38834)
-physics_material_override = SubResource("PhysicsMaterial_gr4gr")
-
-[node name="log_low_Material_001_0" type="MeshInstance3D" parent="RigidBody3D2"]
+[node name="LogMesh" type="MeshInstance3D" parent="Log3D/LogMesh"]
 transform = Transform3D(0.0940714, -0.0135322, 0.0311039, -0.0339201, -0.0375291, 0.0862612, -2.98023e-09, -0.0916976, -0.0398943, 0, 0, 0)
-mesh = SubResource("ArrayMesh_bqv8f")
+mesh = SubResource("ArrayMesh_lckvd")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2"]
+[node name="LogCollision" type="CollisionShape3D" parent="Log3D"]
 transform = Transform3D(0.927184, 0.374607, 0, -0.329522, 0.815596, 0.475624, 0.178172, -0.440991, 0.879649, 0.0150676, -0.00380683, -0.0107884)
-shape = SubResource("CylinderShape3D_g7cej")
+shape = SubResource("CylinderShape3D_nlo6p")
 
-[node name="UI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("5_1xxm2")
-
-[node name="Chat" type="Control" parent="UI"]
-layout_mode = 1
-anchor_top = 0.582
-anchor_right = 0.385
-anchor_bottom = 0.889
-offset_top = -0.136017
-offset_right = -0.52002
-offset_bottom = -0.0720215
-
-[node name="Crosshair" type="TextureRect" parent="UI"]
-modulate = Color(0.776471, 0.788235, 0.8, 1)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_omgat")
+[node name="Texture" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_k4865")
