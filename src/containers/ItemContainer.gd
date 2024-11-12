@@ -22,16 +22,48 @@ func _ready() -> void:
 
 # Returns the item at the x (row) and y (column) coordinate of the container.
 func getItem(x, y):
-	pass
+	return contents[x][y]
 
-func itemExists(x, y):
-	pass
+func containsItem(itemName: String) -> Array:
+	for i in rows:
+		for j in columns:
+			if contents[i][j].itemName == itemName:
+				return [true, Vector2(i, j)]
+	return [false, null]
 
-func containsItem(item):
-	pass
+func getFirstEmpty():
+	for i in rows:
+		for j in columns:
+			if contents[i][j] == null:
+				return Vector2(i,j)
+	return null
 
-func addItem(item):
-	pass
+func setAmount(x, y, amount):
+	(contents[x][y] as Item).amount = amount
+	_update()
+
+func addAmount(x, y, amount):
+	(contents[x][y] as Item).amount += amount
+	_update()
+
+func removeAmount(x, y, amount):
+	(contents[x][y] as Item).amount -= amount
+	_update()
+
+func addItem(item: Item) -> bool:
+	var contains = containsItem(item.itemName)
+	if contains[0]:
+		addAmount(contains[1].x, contains[1].y, item.amount)
+		_update()
+		return true
+	else:
+		var emptySpot = getFirstEmpty()
+		if emptySpot != null:
+			setItemAtPosition(emptySpot.x, emptySpot.y, item)
+			_update()
+			return true
+		else:
+			return false
 
 func setItemAtPosition(item, x, y):
 	contents[x][y] = item.duplicate()
