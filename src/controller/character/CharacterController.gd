@@ -15,6 +15,7 @@ const JUMP_VELOCITY = 4.5
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+@onready var looking_at: RayCast3D = $Camera3D/RayCast3D
 @onready var camera = $Camera3D
 
 @export_subgroup("Controller Specific")
@@ -30,6 +31,11 @@ func _input(event):
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-70), deg_to_rad(70))
 
 func _physics_process(delta):
+	
+	if looking_at.is_colliding():
+		if looking_at.get_collider().get_parent() is Item:
+			print("Looking at item")
+	
 	camera.rotation.z = 0
 	camera.rotation.y = 0
 	# Add the gravity.

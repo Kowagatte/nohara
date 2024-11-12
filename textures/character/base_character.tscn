@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://11fu7q3m0oj6"]
 
-[ext_resource type="PackedScene" uid="uid://b44v41wmysg13" path="res://scenes/playermovement/models/Base_Character.glb" id="1_p7coj"]
+[ext_resource type="PackedScene" uid="uid://b44v41wmysg13" path="res://textures/character/Base_Character.glb" id="1_p7coj"]
 
 [node name="Base_Character" instance=ExtResource("1_p7coj")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)

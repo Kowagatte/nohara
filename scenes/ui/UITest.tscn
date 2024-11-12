@@ -1,11 +1,11 @@
 [gd_scene load_steps=12 format=3 uid="uid://0oiydlatc30v"]
 
-[ext_resource type="Texture2D" uid="uid://cav7nxpyxogrr" path="res://scenes/playermovement/texture_07.png" id="1_ce4yx"]
+[ext_resource type="Texture2D" uid="uid://cav7nxpyxogrr" path="res://textures/grid_ground.png" id="1_ce4yx"]
 [ext_resource type="Texture2D" uid="uid://dgssfw674fot" path="res://assets/skybox/animestyled_hdr.hdr" id="2_v5o2n"]
-[ext_resource type="PackedScene" uid="uid://28myjajwb3c0" path="res://scenes/playermovement/models/character.tscn" id="3_mkbwv"]
+[ext_resource type="PackedScene" uid="uid://28myjajwb3c0" path="res://src/controller/character/character.tscn" id="3_mkbwv"]
 [ext_resource type="PackedScene" uid="uid://bnbed4yrap5ra" path="res://src/items/Log.tscn" id="4_m0k50"]
 [ext_resource type="Script" path="res://scenes/ui/scripts/UI.gd" id="5_1xxm2"]
-[ext_resource type="Texture2D" uid="uid://gcx1m3d60n7g" path="res://scenes/ui/textures/crosshair.png" id="5_omgat"]
+[ext_resource type="Texture2D" uid="uid://gcx1m3d60n7g" path="res://textures/crosshair.png" id="5_omgat"]
 [ext_resource type="PackedScene" uid="uid://d3oo8np1ncic6" path="res://src/containers/inventory/Inventory.tscn" id="7_4v8ie"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_np8y5"]
