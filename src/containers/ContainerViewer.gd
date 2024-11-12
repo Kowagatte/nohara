@@ -10,9 +10,9 @@ func _ready() -> void:
 	inventory.changed.connect(_update_view)
 	for i in inventory.rows:
 		for j in inventory.columns:
-			var tr = itemframe.instantiate() as ItemFrame
-			tr.name = "%d,%d" % [i, j]
-			self.add_child(tr)
+			var _if = itemframe.instantiate() as ItemFrame
+			_if.name = "%d,%d" % [i, j]
+			self.add_child(_if)
 
 
 func _update_view():
