@@ -3,20 +3,32 @@ class_name LookingAt
 
 signal changed
 
-var item: Item = null
+var target = null
+
+func targetExists() -> bool:
+	return target != null
+
+func getTarget():
+	return target
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
-		if item != null:
-			PlayerState.getInventory().addItem(item)
-			item.queue_free()
+		if targetExists():
+			if target is Item:
+				PlayerState.getInventory().addItem(target)
+				target.queue_free()
+			elif target is IObject:
+				target.interact()
 
 func _physics_process(_delta):
 	if self.is_colliding():
 		if self.get_collider().get_parent() is Item:
-			item = self.get_collider().get_parent()
-		else:
-			item = null
-	else:
-		item = null
+			target = self.get_collider().get_parent()
+			changed.emit()
+			return
+		elif self.get_collider().get_parent() is IObject:
+			target = self.get_collider().get_parent()
+			changed.emit()
+			return
+	target = null
 	changed.emit()

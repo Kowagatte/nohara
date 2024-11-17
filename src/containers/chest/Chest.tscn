@@ -1,17 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3oo8np1ncic6"]
+[gd_scene load_steps=4 format=3 uid="uid://clhq8xx0pmkrh"]
 
-[ext_resource type="Script" path="res://src/controller/ui/ItemContainerController.gd" id="1_o6dur"]
-[ext_resource type="Script" path="res://src/containers/ContainerViewer.gd" id="2_bv661"]
-[ext_resource type="PackedScene" uid="uid://de6p7td6ioxd" path="res://src/containers/MouseItemController.tscn" id="3_un816"]
+[ext_resource type="Script" path="res://src/controller/ui/ItemContainerController.gd" id="1_cqyyc"]
+[ext_resource type="Script" path="res://src/containers/ContainerViewer.gd" id="2_u4d8s"]
+[ext_resource type="PackedScene" uid="uid://de6p7td6ioxd" path="res://src/containers/MouseItemController.tscn" id="3_p12uw"]
 
-[node name="Inventory" type="Control" node_paths=PackedStringArray("containerViewer", "mouseItem")]
+[node name="Chest" type="Control" node_paths=PackedStringArray("containerViewer", "mouseItem")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_o6dur")
+script = ExtResource("1_cqyyc")
 containerViewer = NodePath("Panel/VBoxContainer/MarginContainer2/ContainerViewer")
 mouseItem = NodePath("mouseItem")
 
@@ -41,7 +41,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 44
-text = "Inventory"
+text = "Chest"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -56,6 +56,6 @@ theme_override_constants/margin_bottom = 15
 layout_mode = 2
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
-script = ExtResource("2_bv661")
+script = ExtResource("2_u4d8s")
 
-[node name="mouseItem" parent="." instance=ExtResource("3_un816")]
+[node name="mouseItem" parent="." instance=ExtResource("3_p12uw")]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://0oiydlatc30v"]
+[gd_scene load_steps=14 format=3 uid="uid://0oiydlatc30v"]
 
 [ext_resource type="Texture2D" uid="uid://cav7nxpyxogrr" path="res://textures/grid_ground.png" id="1_ce4yx"]
 [ext_resource type="Texture2D" uid="uid://dgssfw674fot" path="res://assets/skybox/animestyled_hdr.hdr" id="2_v5o2n"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://gcx1m3d60n7g" path="res://textures/crosshair.png" id="5_omgat"]
 [ext_resource type="PackedScene" uid="uid://d3oo8np1ncic6" path="res://src/containers/inventory/Inventory.tscn" id="7_4v8ie"]
 [ext_resource type="Script" path="res://src/ui/LookingAtLabel.gd" id="7_gn6ei"]
+[ext_resource type="PackedScene" uid="uid://bok0b2ohmww08" path="res://src/iobjects/chest/Chest.tscn" id="9_dx1as"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_np8y5"]
 albedo_texture = ExtResource("1_ce4yx")
@@ -47,6 +48,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.298101, 0.729441, 2.49461)
 
 [node name="Log2" parent="." instance=ExtResource("4_m0k50")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.587616, 2.57631)
+
+[node name="Chest" parent="." instance=ExtResource("9_dx1as")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.20806, 1.19209e-07, 1.29765)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -98,6 +102,14 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 24
 clip_text = true
 script = ExtResource("7_gn6ei")
+
+[node name="ContainerView" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Inventory" parent="UI" instance=ExtResource("7_4v8ie")]
 visible = false
