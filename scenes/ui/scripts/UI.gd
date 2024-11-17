@@ -1,6 +1,11 @@
 extends Control
 
-@onready var inventory: ItemContainer = $Inventory
+@onready var inventory: ItemContainer = PlayerState.getInventory()
+@onready var inventoryControl: Control = $Inventory
+
+
+func _ready() -> void:
+	$"Inventory/Panel/VBoxContainer/MarginContainer2/ContainerViewer".setContainer(inventory)
 
 func _input(event: InputEvent) -> void:
 	
@@ -10,10 +15,12 @@ func _input(event: InputEvent) -> void:
 				inventory.addItem(logItem)
 	
 	if event.is_action_pressed("toggle_inventory"):
-		inventory.visible = not inventory.visible
-		if inventory.visible:
+		inventoryControl.visible = not inventoryControl.visible
+		if inventoryControl.visible:
+			PlayerState.setInMenu(true)
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:
+			PlayerState.setInMenu(false)
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	if event.is_action_pressed("toggle_options"):

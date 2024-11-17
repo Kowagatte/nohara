@@ -16,7 +16,6 @@ const JUMP_VELOCITY = 4.5
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var camera = $Camera3D
-
 @export_subgroup("Controller Specific")
 @export_range(0.001, 1, 0.001) var look_sensitivity : float = 0.25
 
@@ -25,9 +24,10 @@ func _ready():
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		rotate_y(deg_to_rad(-event.relative.x * look_sensitivity))
-		camera.rotate_x(deg_to_rad(-event.relative.y * look_sensitivity))
-		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-70), deg_to_rad(70))
+		if not PlayerState.getInMenu():
+			rotate_y(deg_to_rad(-event.relative.x * look_sensitivity))
+			camera.rotate_x(deg_to_rad(-event.relative.y * look_sensitivity))
+			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-70), deg_to_rad(70))
 
 func _physics_process(delta):
 	
