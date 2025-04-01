@@ -17,7 +17,7 @@ func hideContainer():
 
 func _init() -> void:
 	inventory = ItemContainer.new()
-	inventory.rows = 6
+	inventory.rows = 5
 	inventory.columns = 9
 
 func getInventory() -> ItemContainer:

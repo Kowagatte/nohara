@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://0oiydlatc30v"]
+[gd_scene load_steps=16 format=3 uid="uid://0oiydlatc30v"]
 
 [ext_resource type="Texture2D" uid="uid://cav7nxpyxogrr" path="res://textures/grid_ground.png" id="1_ce4yx"]
 [ext_resource type="Texture2D" uid="uid://dgssfw674fot" path="res://assets/skybox/animestyled_hdr.hdr" id="2_v5o2n"]
@@ -23,6 +23,10 @@ sky_material = SubResource("PanoramaSkyMaterial_y8if1")
 [sub_resource type="Environment" id="Environment_yokcp"]
 background_mode = 2
 sky = SubResource("Sky_3guo0")
+
+[sub_resource type="BoxMesh" id="BoxMesh_bjcbl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r8n2g"]
 
 [node name="UiTest" type="Node3D"]
 
@@ -114,3 +118,13 @@ grow_vertical = 2
 [node name="Inventory" parent="UI" instance=ExtResource("7_4v8ie")]
 visible = false
 layout_mode = 1
+
+[node name="RigidBody3D" type="RigidBody3D" parent="UI"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.11118, 1.0662, -3.43024)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="UI/RigidBody3D"]
+mesh = SubResource("BoxMesh_bjcbl")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="UI/RigidBody3D"]
+shape = SubResource("BoxShape3D_r8n2g")

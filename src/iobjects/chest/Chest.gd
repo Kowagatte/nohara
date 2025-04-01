@@ -1,7 +1,7 @@
 class_name Chest extends IObject
 
 var columns: int = 9
-var rows: int = 9
+var rows: int = 5
 var container: ItemContainer
 var containerScreen = preload("res://src/containers/chest/Chest.tscn")
 
