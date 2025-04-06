@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://0oiydlatc30v"]
+[gd_scene load_steps=17 format=3 uid="uid://0oiydlatc30v"]
 
 [ext_resource type="Texture2D" uid="uid://cav7nxpyxogrr" path="res://textures/grid_ground.png" id="1_ce4yx"]
 [ext_resource type="Texture2D" uid="uid://dgssfw674fot" path="res://assets/skybox/animestyled_hdr.hdr" id="2_v5o2n"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scenes/ui/scripts/UI.gd" id="5_1xxm2"]
 [ext_resource type="Texture2D" uid="uid://gcx1m3d60n7g" path="res://textures/crosshair.png" id="5_omgat"]
 [ext_resource type="PackedScene" uid="uid://d3oo8np1ncic6" path="res://src/containers/inventory/Inventory.tscn" id="7_4v8ie"]
+[ext_resource type="Script" path="res://src/controller/ui/Chat.gd" id="7_252ib"]
 [ext_resource type="Script" path="res://src/ui/LookingAtLabel.gd" id="7_gn6ei"]
 [ext_resource type="PackedScene" uid="uid://bok0b2ohmww08" path="res://src/iobjects/chest/Chest.tscn" id="9_dx1as"]
 
@@ -65,14 +66,33 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("5_1xxm2")
 
-[node name="Chat" type="Control" parent="UI"]
+[node name="Chat" type="VBoxContainer" parent="UI"]
+visible = false
+clip_contents = true
 layout_mode = 1
-anchor_top = 0.582
-anchor_right = 0.385
+anchors_preset = -1
+anchor_top = 0.468
+anchor_right = 0.49
 anchor_bottom = 0.889
-offset_top = -0.136017
-offset_right = -0.52002
-offset_bottom = -0.0720215
+offset_top = -0.440033
+offset_right = 0.199951
+offset_bottom = -0.119995
+alignment = 2
+script = ExtResource("7_252ib")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Chat"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="history" type="VBoxContainer" parent="UI/Chat/ScrollContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 2
+
+[node name="input" type="LineEdit" parent="UI/Chat"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+caret_blink = true
 
 [node name="Crosshair" type="TextureRect" parent="UI"]
 modulate = Color(0.776471, 0.788235, 0.8, 1)
@@ -108,6 +128,7 @@ clip_text = true
 script = ExtResource("7_gn6ei")
 
 [node name="ContainerView" type="Control" parent="UI"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

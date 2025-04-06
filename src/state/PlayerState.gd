@@ -1,5 +1,6 @@
 extends Node
 
+var isTyping: bool = false
 var containerView: Control
 var inventory: ItemContainer
 var isInMenu: bool = false
